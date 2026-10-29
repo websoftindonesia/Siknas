@@ -14,8 +14,90 @@
 .panel{background:white;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 30px #243b5306}.metric{transition:transform .2s,box-shadow .2s}.metric:hover{transform:translateY(-3px);box-shadow:0 16px 32px #243b5310}.eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8290a3}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:10px 14px;font-size:12px;font-weight:700;transition:.2s}.btn-primary{background:#101b2d;color:white}.btn-primary:hover{background:#263853;transform:translateY(-1px)}.btn-lime{background:var(--mint);color:#17231b}.btn-lime:hover{filter:brightness(.96);transform:translateY(-1px)}.field{width:100%;border:1px solid #dce4ed;background:#fbfcfe;border-radius:11px;padding:11px 12px;font-size:13px;outline:none}.field:focus{border-color:#7b8cff;box-shadow:0 0 0 3px #5267f51a}.pill{border-radius:99px;padding:5px 9px;font-size:10px;font-weight:700}.page{display:none;animation:appear .25s ease}.page.active{display:block}@keyframes appear{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}.bar{height:7px;border-radius:10px;background:#edf1f6;overflow:hidden}.bar span{display:block;height:100%;border-radius:10px;background:#5267f5}.toast{animation:appear .2s ease}.chat-bubble{max-width:88%;padding:11px 13px;border-radius:15px;font-size:12px;line-height:1.6}.chat-user{background:#101b2d;color:white;border-bottom-right-radius:4px;margin-left:auto}.chat-ai{background:white;border:1px solid var(--line);border-bottom-left-radius:4px}.mobile-menu{display:none}
 @media(max-width:900px){.sidebar{position:fixed;z-index:40;left:-280px;top:0;bottom:0;width:260px;transition:left .25s}.sidebar.open{left:0}.mobile-menu{display:inline-flex}.content-wrap{padding:18px!important}.header-title{font-size:16px}.grid-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:560px){.grid-metrics{grid-template-columns:1fr!important}.hide-mobile{display:none!important}.content-wrap{padding:14px!important}.header-actions .btn span{display:none}}
+
+/* Animated loading + welcome experience */
+#loading-screen,#welcome-screen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0b1424;color:#fff;transition:opacity .65s ease,visibility .65s ease}
+#loading-screen.is-hidden,#welcome-screen.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+#loading-screen .ambient,#welcome-screen .ambient{position:absolute;inset:-20%;background:radial-gradient(circle at 20% 25%,#5267f54a,transparent 32%),radial-gradient(circle at 80% 75%,#c8f16925,transparent 30%),radial-gradient(circle at 70% 15%,#21c7b52a,transparent 25%);filter:blur(12px);animation:ambientDrift 9s ease-in-out infinite alternate}
+.orbit-scene{position:relative;width:176px;height:176px;margin:0 auto 28px;display:grid;place-items:center}
+.orbit-ring{position:absolute;inset:7px;border:1px solid #c8f16955;border-radius:50%;animation:orbitSpin 7s linear infinite}
+.orbit-ring.r2{inset:23px;border-color:#7c8cff88;animation-duration:5s;animation-direction:reverse}
+.orbit-ring.r3{inset:39px;border-style:dashed;border-color:#ffffff35;animation-duration:12s}
+.orbit-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:#c8f169;top:18px;left:31px;box-shadow:0 0 18px #c8f169}
+.loading-core{width:76px;height:76px;border-radius:25px;background:#c8f169;color:#101b2d;display:grid;place-items:center;box-shadow:0 0 55px #c8f16930;animation:coreFloat 2s ease-in-out infinite}
+.loading-core svg{width:36px;height:36px}
+.loading-progress{height:4px;width:min(280px,68vw);background:#ffffff18;border-radius:99px;overflow:hidden;margin:22px auto 0}
+.loading-progress span{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#5267f5,#c8f169);animation:loadProgress 2.1s cubic-bezier(.22,.8,.3,1) forwards}
+.loading-caption{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#a7b3c7;animation:softBlink 1.4s ease-in-out infinite}
+.welcome-card{position:relative;width:min(760px,calc(100vw - 36px));padding:clamp(28px,6vw,58px);border:1px solid #ffffff20;border-radius:32px;background:linear-gradient(135deg,#17243aee,#101b2dee);box-shadow:0 30px 100px #0007;animation:welcomeRise .8s cubic-bezier(.2,.8,.2,1) both}
+.welcome-card:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,#c8f16988,#5267f566,transparent 70%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.welcome-orb{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none}
+.welcome-orb.one{width:170px;height:170px;right:-35px;top:-50px;background:radial-gradient(circle,#5267f54d,transparent 70%);animation:orbFloat 5s ease-in-out infinite}
+.welcome-orb.two{width:210px;height:210px;right:18%;bottom:-120px;background:radial-gradient(circle,#c8f16925,transparent 70%);animation:orbFloat 7s ease-in-out infinite reverse}
+.welcome-icon{width:58px;height:58px;border-radius:19px;background:#c8f169;color:#101b2d;display:grid;place-items:center;box-shadow:0 10px 35px #c8f16924;animation:coreFloat 3s ease-in-out infinite}
+.welcome-icon svg{width:29px;height:29px}
+.welcome-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #ffffff1c;border-radius:99px;background:#ffffff09;color:#c8f169;font-size:10px;font-weight:700;letter-spacing:.15em}
+.welcome-kicker span{width:6px;height:6px;background:#c8f169;border-radius:50%;box-shadow:0 0 12px #c8f169;animation:softBlink 1.3s infinite}
+.welcome-title{font-size:clamp(34px,6vw,62px);line-height:1.04;letter-spacing:-.045em;font-weight:700;margin:24px 0 16px}
+.welcome-title em{font-style:normal;color:#c8f169}
+.welcome-desc{max-width:520px;color:#b9c5d7;font-size:14px;line-height:1.8}
+.welcome-features{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 30px}
+.welcome-feature{display:flex;align-items:center;gap:7px;border:1px solid #ffffff17;background:#ffffff08;border-radius:12px;padding:10px 12px;color:#d7dfeb;font-size:11px}
+.welcome-feature svg{width:15px;height:15px;color:#c8f169}
+.welcome-enter{display:inline-flex;align-items:center;gap:12px;background:#c8f169;color:#101b2d;font-size:13px;font-weight:800;padding:14px 18px;border-radius:14px;transition:transform .2s,box-shadow .2s}
+.welcome-enter:hover{transform:translateY(-3px);box-shadow:0 12px 30px #c8f16925}
+.welcome-enter svg{width:17px;height:17px;transition:transform .2s}
+.welcome-enter:hover svg{transform:translateX(4px)}
+.welcome-foot{font-size:10px;color:#7f8ca1;margin-top:22px}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes coreFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.035)}}@keyframes ambientDrift{from{transform:translate3d(-1%,0,0) scale(1)}to{transform:translate3d(2%,1%,0) scale(1.06)}}@keyframes loadProgress{0%{width:0}35%{width:42%}75%{width:78%}100%{width:100%}}@keyframes softBlink{0%,100%{opacity:.55}50%{opacity:1}}@keyframes welcomeRise{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-12px,14px)}}
+@media(prefers-reduced-motion:reduce){#loading-screen *,#welcome-screen *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
 </style></head>
 <body>
+
+<!-- Animated startup loading screen -->
+<div id="loading-screen" role="status" aria-label="Memuat SIKN">
+  <div class="ambient"></div>
+  <div class="relative z-10 text-center px-6">
+    <div class="orbit-scene">
+      <div class="orbit-ring"><span class="orbit-dot"></span></div>
+      <div class="orbit-ring r2"></div><div class="orbit-ring r3"></div>
+      <div class="loading-core"><i data-lucide="heart-pulse"></i></div>
+    </div>
+    <div class="text-xs font-bold tracking-[.32em] text-white">SIKN<span style="color:#c8f169">.</span></div>
+    <div class="text-[10px] text-slate-400 tracking-[.18em] mt-2 mb-5">NATIONAL HEALTH INTELLIGENCE</div>
+    <div class="loading-caption">Menyiapkan ruang kendali kesehatan</div>
+    <div class="loading-progress"><span></span></div>
+    <div class="text-[10px] text-slate-500 mt-3">Menginisialisasi modul dan visualisasi data</div>
+  </div>
+</div>
+
+<!-- Animated welcome screen -->
+<div id="welcome-screen" class="is-hidden" aria-label="Selamat datang di SIKN">
+  <div class="ambient"></div>
+  <div class="relative z-10 w-full flex justify-center px-4 py-8">
+    <div class="welcome-card overflow-hidden">
+      <div class="welcome-orb one"></div><div class="welcome-orb two"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="welcome-icon"><i data-lucide="heart-pulse"></i></div>
+          <div><div class="font-bold tracking-wide text-sm">SIKN<span style="color:#c8f169">.</span></div><div class="text-[10px] text-slate-400 tracking-widest mt-1">HEALTH INTELLIGENCE</div></div>
+        </div>
+        <div class="welcome-kicker"><span></span> YOUR COMMAND CENTER IS READY</div>
+        <h1 class="welcome-title">Selamat datang di<br><em>masa depan data kesehatan.</em></h1>
+        <p class="welcome-desc">Satu ruang kendali untuk memantau konektivitas fasilitas kesehatan, membaca tren pelaporan, dan mengeksplorasi insight melalui visualisasi data yang terintegrasi.</p>
+        <div class="welcome-features">
+          <div class="welcome-feature"><i data-lucide="activity"></i> Analitik epidemiologi</div>
+          <div class="welcome-feature"><i data-lucide="network"></i> Monitoring konektivitas</div>
+          <div class="welcome-feature"><i data-lucide="sparkles"></i> Health AI Assistant</div>
+        </div>
+        <button class="welcome-enter" onclick="enterDashboard()">Masuk ke Command Center <i data-lucide="arrow-right"></i></button>
+        <div class="welcome-foot">SIKN UI Prototype · Data ilustratif untuk demonstrasi</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="flex min-h-screen">
 <aside id="sidebar" class="sidebar w-[258px] shrink-0 min-h-screen flex flex-col px-4 py-5">
   <div class="flex items-center gap-3 px-2 mb-9">
@@ -110,6 +192,28 @@
 <div id="toast-zone" class="fixed top-24 right-5 z-[70] space-y-2"></div>
 <script>
 const $=id=>document.getElementById(id);
+
+function enterDashboard(){
+  const welcome=$('welcome-screen');
+  welcome.classList.add('is-hidden');
+  document.body.style.overflow='';
+  setTimeout(()=>welcome.style.display='none',700);
+  toast('Selamat datang! Dashboard SIKN siap digunakan.');
+}
+function startIntroExperience(){
+  document.body.style.overflow='hidden';
+  const loading=$('loading-screen');
+  const welcome=$('welcome-screen');
+  setTimeout(()=>{
+    loading.classList.add('is-hidden');
+    setTimeout(()=>{
+      loading.style.display='none';
+      welcome.classList.remove('is-hidden');
+      lucide.createIcons();
+    },650);
+  },2250);
+}
+
 let facilities=[
 {code:'PKM-10023',name:'Puskesmas Sukamaju',type:'Puskesmas',prov:'Jawa Barat',status:'Terhubung'},
 {code:'RSU-40291',name:'RSUD Kota Bandung',type:'Rumah Sakit',prov:'Jawa Barat',status:'Terhubung'},
@@ -144,5 +248,5 @@ function copyCode(){const code=$('code-sample').innerText;navigator.clipboard?.w
 let trendChart,sourceChart;function initCharts(){if(!window.Chart)return;Chart.defaults.font.family='DM Sans';Chart.defaults.color='#8290a3';trendChart=new Chart($('trendChart'),{type:'line',data:{labels:['Mei','Jun','Jul','Agu','Sep','Okt'],datasets:[{data:[420,580,690,810,950,1240],borderColor:'#5267f5',backgroundColor:'rgba(82,103,245,.09)',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#5267f5',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},border:{display:false}},y:{grid:{color:'#edf1f6'},border:{display:false},ticks:{callback:v=>v+'k'}}}}});sourceChart=new Chart($('sourceChart'),{type:'doughnut',data:{labels:['Puskesmas','Rumah Sakit','Laboratorium'],datasets:[{data:[12430,2580,810],backgroundColor:['#5267f5','#c8f169','#fb923c'],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:false,cutout:'74%',plugins:{legend:{display:false}}}})}
 function updateTrend(range){const all={3:{labels:['Agu','Sep','Okt'],data:[810,950,1240]},6:{labels:['Mei','Jun','Jul','Agu','Sep','Okt'],data:[420,580,690,810,950,1240]},12:{labels:['Nov','Des','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt'],data:[290,330,420,460,510,570,620,700,760,810,950,1240]}}[range];trendChart.data.labels=all.labels;trendChart.data.datasets[0].data=all.data;trendChart.update()}
 $('current-date').textContent=new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(new Date());
-renderLogs();renderFaskes();initCharts();lucide.createIcons();
+renderLogs();renderFaskes();initCharts();lucide.createIcons();startIntroExperience();
 </script></body></html>
